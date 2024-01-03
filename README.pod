@@ -51,9 +51,13 @@ turn every uri into a link
 
    subst -M "Regexp::Common qw /URI/" -r 's#($RE{URI}{HTTP})#<a href="$a">link</a>#g' somefile
 
+=head4 DEPENDENCIES
+
+B<subst> is a perl script and as such needs perl.
+
 =head4 Installation
 
-Copy L<subst> to B<$HOME/bin/subst>, that's all.
+Copy L<subst|https://github.com/TLINDEN/subst/blob/main/subst> to B<$HOME/bin/subst>, that's all.
 No additional perl modules are required.
 
 =head4 Version

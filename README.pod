@@ -1,0 +1,66 @@
+=head4 subst - commandline tool to replace file contents or file names
+
+This script can be used to replace something in a file or filename by using perl
+regular expressions. It can also be used to rename files based on regexes.
+
+=head4 Usage
+
+    Usage: subst  [-M <perl module>] [-t]  -r 's/old/new/<flags>' [ -r '...', ...] [<file> ...     | /regex/]
+           subst  [-M <perl module>] [-tR] -m 's/old/new/<flags>' [ -m '...', ...] [<file|dir> ... | /regex/]
+    
+    Options:
+     -r        replace contents of file(s)
+     -m        rename file(s)
+     -R        recursive (only used in conjunction with -m)
+     -M        load additional perl module to enhance /e functionality.
+     -t        test mode, do not overwrite file(s)
+    
+    Samples:
+     - replace "tom" with "mac" in all *.txt files:
+       subst -r 's/tom/mac/g' *.txt
+    
+     - rename all jpg files containing whitespaces:
+       subst -m 's/ /_/g' '/.jpg/'
+    
+     - decode base64 encoded contents
+       subst -M MIME::Base64 -r 's/([a-zA-Z0-9]*)$/decode_base64($1)/gem' somefile
+    
+     - turn every uri into a link
+       subst -M "Regexp::Common qw /URI/" -r 's#($RE{URI}{HTTP})#<a href="$a">link</a>#g' somefile
+    
+    If <file> is -, STDIN will be used as input file, results will be printed
+    to STDOUT. -t does not apply for STDIN input.
+    
+    Substitution regex must be perlish. See 'perldoc perlre' for details.
+
+=head4 Samples
+
+replace "tom" with "mac" in all *.txt files:
+
+   subst -r 's/tom/mac/g' *.txt
+
+rename all jpg files containing whitespaces:
+
+   subst -m 's/ /_/g' '/.jpg/'
+
+decode base64 encoded contents
+
+   subst -M MIME::Base64 -r 's/([a-zA-Z0-9]*)$/decode_base64($1)/gem' somefile
+
+turn every uri into a link
+
+   subst -M "Regexp::Common qw /URI/" -r 's#($RE{URI}{HTTP})#<a href="$a">link</a>#g' somefile
+
+=head4 Installation
+
+Copy L<subst> to B<$HOME/bin/subst>, that's all.
+No additional perl modules are required.
+
+=head4 Version
+
+1.1.5.
+
+Copyright (c) 2002-2021 - T.v. Dein
+
+=cut
+
